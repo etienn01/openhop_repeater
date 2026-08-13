@@ -41,7 +41,7 @@ logger = logging.getLogger("HTTPServer")
 # ---------------------------------------------------------------------------
 # Repository constants
 # ---------------------------------------------------------------------------
-GITHUB_OWNER = "openhop-dev"
+GITHUB_OWNER = "etienn01"
 GITHUB_REPO = "openhop_repeater"
 GITHUB_RAW_BASE = f"https://raw.githubusercontent.com/{GITHUB_OWNER}/{GITHUB_REPO}"
 GITHUB_API_BASE = f"https://api.github.com/repos/{GITHUB_OWNER}/{GITHUB_REPO}"

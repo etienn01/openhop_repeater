@@ -6,7 +6,7 @@ set -Eeuo pipefail
 readonly SCRIPT_PATH="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)/$(basename -- "${BASH_SOURCE[0]}")"
 readonly SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
 
-readonly REPOSITORY_URL="https://github.com/openhop-dev/openhop_repeater.git"
+readonly REPOSITORY_URL="https://github.com/etienn01/openhop_repeater.git"
 readonly DEFAULT_UPGRADE_REF="dev"
 readonly PACKAGE_DIST_NAME="openhop_repeater"
 readonly LOCK_FILE="/run/lock/openhop-repeater-manage.lock"
@@ -53,7 +53,7 @@ is_expected_repo_checkout() {
     remote_url="$(git -C "$source_dir" remote get-url origin 2>/dev/null || true)"
     [ -n "$remote_url" ] || return 1
     case "$remote_url" in
-        "$REPOSITORY_URL"|"${REPOSITORY_URL%.git}"|git@github.com:openhop-dev/openhop_repeater.git)
+        "$REPOSITORY_URL"|"${REPOSITORY_URL%.git}"|git@github.com:etienn01/openhop_repeater.git)
             return 0
             ;;
     esac
@@ -793,9 +793,9 @@ fi
 if "$VENV_PYTHON" -m pip install \
     --upgrade \
     --no-cache-dir \
-    "openhop_repeater[hardware] @ git+https://github.com/openhop-dev/openhop_repeater.git@${CHANNEL}"; then
+    "openhop_repeater[hardware] @ git+https://github.com/etienn01/openhop_repeater.git@${CHANNEL}"; then
     # Keep web/OTA updates aligned with manage.sh install/upgrade defaults.
-    RADIO_BASE_URL="https://raw.githubusercontent.com/openhop-dev/openhop_repeater/${CHANNEL}"
+    RADIO_BASE_URL="https://raw.githubusercontent.com/etienn01/openhop_repeater/${CHANNEL}"
     RADIO_STORAGE_DIR="/var/lib/openhop_repeater"
     mkdir -p "$RADIO_STORAGE_DIR"
     wget -qO "$RADIO_STORAGE_DIR/radio-settings.json" "${RADIO_BASE_URL}/radio-settings.json" 2>/dev/null || true
@@ -849,7 +849,7 @@ UPGRADEEOF
         fi
     fi
     # We don't have any binary wheels available for these on a LuckFox, so we need to ignore them on that platform.
-    if ! grep -q "Luckfox Pico" /proc/device-tree/model 2>/dev/null; then
+    if ! grep -q "Luckfox" /proc/device-tree/model 2>/dev/null; then
         # Force binary wheels for slow-to-compile packages (much faster on Raspberry Pi)
         export PIP_ONLY_BINARY=pycryptodome,cffi,PyNaCl,psutil
     fi
@@ -1293,9 +1293,9 @@ python3 -m pip uninstall -y pymc_core 2>/dev/null || true
         if "$VENV_PYTHON" -m pip install \
             --upgrade \
             --no-cache-dir \
-            "openhop_repeater[hardware] @ git+https://github.com/openhop-dev/openhop_repeater.git@${CHANNEL}"; then
+            "openhop_repeater[hardware] @ git+https://github.com/etienn01/openhop_repeater.git@${CHANNEL}"; then
             # Keep web/OTA updates aligned with manage.sh install/upgrade defaults.
-            RADIO_BASE_URL="https://raw.githubusercontent.com/openhop-dev/openhop_repeater/${CHANNEL}"
+            RADIO_BASE_URL="https://raw.githubusercontent.com/etienn01/openhop_repeater/${CHANNEL}"
             RADIO_STORAGE_DIR="/var/lib/openhop_repeater"
             mkdir -p "$RADIO_STORAGE_DIR"
             wget -qO "$RADIO_STORAGE_DIR/radio-settings.json" "${RADIO_BASE_URL}/radio-settings.json" 2>/dev/null || true
@@ -1309,7 +1309,7 @@ UPGRADEEOF
 
     echo "[8/9] Installing Python Dependencies..."
 
-    if ! grep -q "Luckfox Pico" /proc/device-tree/model 2>/dev/null; then
+    if ! grep -q "Luckfox" /proc/device-tree/model 2>/dev/null; then
         export PIP_ONLY_BINARY=pycryptodome,cffi,PyNaCl,psutil
     fi
     echo "Note: Using optimized binary wheels for faster installation"
